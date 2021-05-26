@@ -136,3 +136,28 @@ git merge origin/master
 git clone https://github.com/h-Tony/Use-Git.git
 ```
 将Use目录中的文件全部复制到上一层目录中
+
+---
+## 可能会遇到的问题
+>The authenticity of host 'github.com (52.74.223.119)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Permission denied (publickey) 没有权限的publickey ，出现这错误一般是- 以下两种原因
+> 客户端与服务端未生成 ssh key
+> 客户端与服务端的ssh key不匹配
+- 客户端生成ssh key
+1. 在cmd里面输入
+> ssh-keygen -t rsa -C "xxxxxxxx@qq.com"
+ssh-keygen -t rsa -C "youremail@example.com"
+
+xxxxxx@qq.com改为自己的邮箱即可，途中会让你输入密码啥的，不需要管，一路回车即可，会生成你的ssh key。（如果重新生成的话会覆盖之前的ssh key。）
+2. 打开id_rsa.pub文件,并且复制内容
+3. 在github上打开箭头处,点击Setting
+4. 点击SSH and GPG keys
+5. 打开你刚刚生成的id_rsa.pub，将里面的内容复制，进入你的github账号，在settings下，SSH and GPG keys下new SSH key，然后将id_rsa.pub里的内容复制到Key中，完成后Add SSH Key.
+6. 用idea再次提交文件到 github上,显示提交成功
